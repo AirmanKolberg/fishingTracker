@@ -6,7 +6,7 @@ I have no direct interest in writing a book over these discoveries to come, but 
 If, for any reason, you would like to donate- though unneccesary, is always apreciated!
 
 
-BitCoin:  3Gj49JGVPXjw3994bSebQNrHsFJkZE9iRg
+BitCoin:  3Gj49JGVPXjw3994bSebQNrHsFJkZE9iRg &&
 Etherium:  0x08b57537943BBb6A527C9c861E9550D9Be9f7729
 
 Thank you all for reading!
