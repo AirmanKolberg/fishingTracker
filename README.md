@@ -10,3 +10,6 @@ BitCoin:  3Gj49JGVPXjw3994bSebQNrHsFJkZE9iRg &&
 Etherium:  0x08b57537943BBb6A527C9c861E9550D9Be9f7729
 
 Thank you all for reading!
+
+# Update, 4Jan2020
+It's been a while, but I'm translating this app over from Bash to Python.  I will then be hosting the app alongside a webserver that I will use to collect data from fishers all over.  I'm in the very early stages, but I've uploaded the parts I've just begun.  More to come soon!
