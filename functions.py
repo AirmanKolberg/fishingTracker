@@ -2,6 +2,7 @@ from os import system
 from datetime import date
 from webbrowser import open
 from time import sleep
+import pandas as pd
 
 
 def clear_screen():
@@ -29,6 +30,7 @@ the most cost-effective bait for fishing.""")
     while not returning_to_menu:
         open_browser = input("Would you like to visit the page for the app's complete details?\n>").lower()
         if open_browser == 'yes':
+            # --------------------LINK TO ACTUAL DOMAIN PAGE, NOT GOOGLE--------------------
             open("https://www.google.com")
             returning_to_menu = True
         elif open_browser == 'no':
@@ -38,17 +40,36 @@ the most cost-effective bait for fishing.""")
 
 
 def go_fish():
+    date_list = []
+    location_list = []
+    water_type_list = []
+    bait_list = []
+    caught_list = []
+    edible_list = []
+
     class Inputs:
         def __init__(self, message):
             self.message = message
             self.variable_itself = 'N/A'
 
         def set_variable(self):
-            user_in = input(f'{self.message}\n')
+            user_in_set = False
+            while not user_in_set:
+                user_in = input(f'{self.message}\n')
+                if 'Type of water' in self.message:
+                    if 'salt' not in user_in and 'fresh' not in user_in and 'unknown' not in user_in:
+                        print('Try again...')
+                    else:
+                        user_in_set = True
+                else:
+                    user_in_set = True
+
             if user_in[-2:] != '-y':
                 confirm_user_in(user_in, self.message)
+                print(f"{self.message} set to {self.variable_itself}.")
+            else:
+                user_in = user_in[:-2]
             self.variable_itself = user_in
-            print(f"{self.message} set to {self.variable_itself}.")
 
         def set_boolean(self):
             boolean_set = False
@@ -64,6 +85,7 @@ def go_fish():
                     print(f"{user_in} is neither 'yes' nor 'no', please try again.")
 
     location = Inputs('Select location...')
+    water_type = Inputs('Type of water?  (salt, fresh, or unknown)')
     bait = Inputs('Select bait...')
     caught = Inputs('Did you catch a fish?')
     edible = Inputs('Was it large enough to eat, if desired?')
@@ -71,16 +93,59 @@ def go_fish():
     clear_screen()
     today = str(date.today())
     location.set_variable()
+    water_type.set_variable()
     bait.set_variable()
-    clear_screen()
-    input("Cast away!\nPress the Return key once you've finished...")
-    caught.set_boolean()
-    if caught.variable_itself:
-        edible.set_boolean()
-    clear_screen()
-    fish_again = input('Cast again?\n').lower()
-    if fish_again == 'yes':
-        # --------------------FINISH THE CODE HERE--------------------
-        print('code this part')
-    elif fish_again == 'no':
-        print('Thanks for fishing today!')
+
+    def cast_away():
+        clear_screen()
+        input("Cast away!\nPress the Return/Enter key once you've finished...")
+        caught.set_boolean()
+        if caught.variable_itself:
+            edible.set_boolean()
+
+    def update_lists():
+        date_list.append(today)
+        location_list.append(location.variable_itself)
+        water_type_list.append(water_type.variable_itself)
+        bait_list.append(bait.variable_itself)
+        caught_list.append(caught.variable_itself)
+        edible_list.append(edible.variable_itself)
+
+    def fish_current_location_and_date():
+        game_over = False
+        while not game_over:
+            cast_away()
+            update_lists()
+            clear_screen()
+            done_selecting = False
+            while not done_selecting:
+                fish_again = input('Cast again?\n').lower()
+                if fish_again == 'yes':
+                    while not done_selecting:
+                        bait_switch = input('Change bait?\n').lower()
+                        if bait_switch == 'yes':
+                            bait.set_variable()
+                            done_selecting = True
+                        elif bait_switch == 'no':
+                            done_selecting = True
+                        else:
+                            print(f"{bait_switch} is neither 'yes' nor 'no', please try again.")
+                        print('code this part')
+                elif fish_again == 'no':
+                    clear_screen()
+                    print('Sending fishing data...')
+                    fishing_trip = {'Date': date_list,
+                                    'Location': location_list,
+                                    'Water Type': water_type_list,
+                                    'Bait': bait_list,
+                                    'Caught?': caught_list,
+                                    'Edible?': edible_list
+                                    }
+                    df = pd.DataFrame(fishing_trip, columns=['Date', 'Location', 'Water Type', 'Bait', 'Caught?', 'Edible?'])
+                    df.to_csv('fishingData.csv')
+                    print('Thanks for fishing today!')
+                    exit()
+                else:
+                    print(f"{fish_again} is neither 'yes' nor 'no', please try again.")
+
+    fish_current_location_and_date()
