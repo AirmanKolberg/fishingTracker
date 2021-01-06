@@ -1,11 +1,10 @@
 from functions import *
 
-menu_settings_list = ['Fish', 'Help', 'Exit']
-
 
 def main_menu():
     clear_screen()
     menu_setting = 0
+    menu_settings_list = ['Fish', 'Help', 'Exit']
 
     print('Welcome to DataFish!  Please select from the following:\n')
     for settings in menu_settings_list:
