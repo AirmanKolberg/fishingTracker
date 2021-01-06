@@ -1,9 +1,9 @@
 from os import system
-from datetime import date
+from datetime import date, datetime
 from webbrowser import open
 from time import sleep
 import pandas as pd
-
+from geocoder import ip
 
 def clear_screen():
     _ = system('clear')
@@ -30,7 +30,6 @@ the most cost-effective bait for fishing.""")
     while not returning_to_menu:
         open_browser = input("Would you like to visit the page for the app's complete details?\n>").lower()
         if open_browser == 'yes':
-            # NOTE TO SELF: Just use AWS, make your life easy, man.
             # --------------------LINK TO ACTUAL DOMAIN PAGE, NOT GOOGLE--------------------
             open("https://www.google.com")
             returning_to_menu = True
@@ -42,7 +41,9 @@ the most cost-effective bait for fishing.""")
 
 def go_fish():
     date_list = []
+    time_list = []
     location_list = []
+    coordinates_list = []
     water_type_list = []
     bait_list = []
     caught_list = []
@@ -99,6 +100,15 @@ def go_fish():
 
     def cast_away():
         clear_screen()
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        time_list.append(current_time)
+
+        where_am_i = ip('me')
+        coordinates = str(where_am_i.latlng)
+        approx_location = coordinates[1:-1]
+        coordinates_list.append(approx_location)
+
         input("Cast away!\nPress the Return/Enter key once you've finished...")
         caught.set_boolean()
         if caught.variable_itself:
@@ -136,13 +146,15 @@ def go_fish():
                     clear_screen()
                     print('Sending fishing data...')
                     fishing_trip = {'Date': date_list,
+                                    'Time': time_list,
                                     'Location': location_list,
+                                    'Coordinates': coordinates_list,
                                     'Water Type': water_type_list,
                                     'Bait': bait_list,
                                     'Caught?': caught_list,
                                     'Edible?': edible_list
                                     }
-                    df = pd.DataFrame(fishing_trip, columns=['Date', 'Location', 'Water Type', 'Bait', 'Caught?', 'Edible?'])
+                    df = pd.DataFrame(fishing_trip, columns=['Date', 'Time', 'Location', 'Water Type', 'Bait', 'Caught?', 'Edible?'])
                     df.to_csv('fishingData.csv')
                     print('Thanks for fishing today!')
                     exit()
