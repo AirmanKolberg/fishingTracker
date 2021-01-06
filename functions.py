@@ -102,6 +102,7 @@ def go_fish():
     bait.set_variable()
 
     def cast_away():
+        edible.variable_itself = 'N/A'
         clear_screen()
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
@@ -157,9 +158,8 @@ def go_fish():
                                     'Caught?': caught_list,
                                     'Edible?': edible_list
                                     }
-                    df = pd.DataFrame(fishing_trip, columns=['Date', 'Time', 'Location',
-                                                             'Water Type', 'Bait',
-                                                             'Caught?', 'Edible?'])
+                    df = pd.DataFrame(fishing_trip, columns=['Date', 'Time', 'Location', 'Coordinates',
+                                                             'Water Type', 'Bait', 'Caught?', 'Edible?'])
                     df.to_csv('fishingData.csv')
                     # Send CSV to remote server
                     print('Thanks for fishing today!')
