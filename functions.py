@@ -5,6 +5,7 @@ from time import sleep
 import pandas as pd
 from geocoder import ip
 
+
 def clear_screen():
     _ = system('clear')
 
