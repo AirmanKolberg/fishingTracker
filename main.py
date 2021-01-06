@@ -26,4 +26,5 @@ def main_menu():
         print(f'{selection} is not valid, please try again.')
 
 
-go_fish()
+while True:
+    main_menu()
