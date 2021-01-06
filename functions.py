@@ -13,7 +13,7 @@ def clear_screen():
 def confirm_user_in(user_in, var_being_set):
     confirmed = False
     while not confirmed:
-        confirmation = input(f"Set '{user_in}' to {var_being_set}?\n").lower()
+        confirmation = input(f"Set '{user_in}' as {var_being_set.lower()}?\n").lower()
         if confirmation == 'yes':
             confirmed = True
         elif confirmation == 'no':
@@ -51,14 +51,15 @@ def go_fish():
     edible_list = []
 
     class Inputs:
-        def __init__(self, message):
+        def __init__(self, name, message):
+            self.name = name
             self.message = message
             self.variable_itself = 'N/A'
 
         def set_variable(self):
             user_in_set = False
             while not user_in_set:
-                user_in = input(f'{self.message}\n')
+                user_in = input(f'{self.message}\n').lower()
                 if 'Type of water' in self.message:
                     if 'salt' not in user_in and 'fresh' not in user_in and 'unknown' not in user_in:
                         print('Try again...')
@@ -68,8 +69,9 @@ def go_fish():
                     user_in_set = True
 
             if user_in[-2:] != '-y':
-                confirm_user_in(user_in, self.message)
-                print(f"{self.message} set to {self.variable_itself}.")
+                confirm_user_in(user_in, self.name)
+                self.variable_itself = user_in
+                print(f"{self.name} set to {self.variable_itself}.")
             else:
                 user_in = user_in[:-2]
             self.variable_itself = user_in
@@ -87,11 +89,11 @@ def go_fish():
                 else:
                     print(f"{user_in} is neither 'yes' nor 'no', please try again.")
 
-    location = Inputs('Select location...')
-    water_type = Inputs('Type of water?  (salt, fresh, or unknown)')
-    bait = Inputs('Select bait...')
-    caught = Inputs('Did you catch a fish?')
-    edible = Inputs('Was it large enough to eat, if desired?')
+    location = Inputs('Location', 'Select location...')
+    water_type = Inputs('Water type', 'Type of water?  (salt, fresh, or unknown)')
+    bait = Inputs('Bait', 'Select bait...')
+    caught = Inputs('Caught?', 'Did you catch a fish?')
+    edible = Inputs('Edible?', 'Was it large enough to eat, if desired?')
 
     clear_screen()
     today = str(date.today())
