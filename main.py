@@ -1,6 +1,6 @@
 from functions import *
 
-menu_settings_list = ['Fish', 'Send Fish Report', 'Help', 'Exit']
+menu_settings_list = ['Fish', 'Help', 'Exit']
 
 
 def main_menu():
@@ -16,11 +16,9 @@ def main_menu():
     selection = input('>').lower()
     if selection == 'fish' or selection == '1':
         go_fish()
-    elif selection == 'send fish report' or selection == '2':
-        print('delete this option (located in fish function)')
-    elif selection == 'help' or selection == '3':
+    elif selection == 'help' or selection == '2':
         display_help_menu()
-    elif selection == 'exit' or selection == '4':
+    elif selection == 'exit' or selection == '3':
         exit()
     else:
         print(f'{selection} is not valid, please try again.')
