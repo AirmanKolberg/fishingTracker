@@ -3,7 +3,9 @@ bite="No Bite"
 fish=0
 caught="No"
 
-# NOTE: Make lists of equipment from which the user can select for each variable
+# NOTE: This shell script is obsolete and has been replaced with a Python application.
+# This will remain available, as it is the original iteration of my data collection
+# application in bash.
 
 main_function()
 
