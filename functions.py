@@ -30,6 +30,7 @@ the most cost-effective bait for fishing.""")
     while not returning_to_menu:
         open_browser = input("Would you like to visit the page for the app's complete details?\n>").lower()
         if open_browser == 'yes':
+            # NOTE TO SELF: Just use AWS, make your life easy, man.
             # --------------------LINK TO ACTUAL DOMAIN PAGE, NOT GOOGLE--------------------
             open("https://www.google.com")
             returning_to_menu = True
