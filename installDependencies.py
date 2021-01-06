@@ -1,3 +1,11 @@
+# You can use this script to install dependencies
+# for any Python application.  Simply copy my
+# script, and replace the strings inside of the
+# dependency_list list with whatever dependencies
+# need be installed for your application, and then
+# this app should function the same.  🤙🏼
+
+
 from subprocess import check_output
 from os import system
 
