@@ -49,6 +49,7 @@ def go_fish():
     bait_list = []
     caught_list = []
     edible_list = []
+    fish_type_list = []
 
     class Inputs:
         def __init__(self, name, message):
@@ -65,10 +66,13 @@ def go_fish():
                         print('Try again...')
                     else:
                         user_in_set = True
+                elif 'Type of fish' in self.message and user_in == '':
+                    user_in = 'Unknown'
+                    user_in_set = True
                 else:
                     user_in_set = True
 
-            if user_in[-2:] != '-y':
+            if user_in[-2:] != '-y' and user_in != 'Unknown':
                 confirm_user_in(user_in, self.name)
                 self.variable_itself = user_in
                 print(f"{self.name} set to {self.variable_itself}.")
@@ -94,6 +98,7 @@ def go_fish():
     bait = Inputs('Bait', 'Select bait...')
     caught = Inputs('Caught?', 'Did you catch a fish?')
     edible = Inputs('Edible?', 'Was it large enough to eat, if desired?')
+    fish_type = Inputs('Fish Type', 'Type of fish? (Leave blank and press Enter if unknown)')
 
     clear_screen()
     today = str(date.today())
@@ -103,6 +108,7 @@ def go_fish():
 
     def cast_away():
         edible.variable_itself = 'N/A'
+        fish_type.variable_itself = 'N/A'
         clear_screen()
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
@@ -117,6 +123,7 @@ def go_fish():
         caught.set_boolean()
         if caught.variable_itself:
             edible.set_boolean()
+            fish_type.set_variable()
 
     def update_lists():
         date_list.append(today)
@@ -125,6 +132,7 @@ def go_fish():
         bait_list.append(bait.variable_itself)
         caught_list.append(caught.variable_itself)
         edible_list.append(edible.variable_itself)
+        fish_type_list.append(fish_type.variable_itself)
 
     def fish_current_location_and_date():
         game_over = False
@@ -156,10 +164,12 @@ def go_fish():
                                     'Water Type': water_type_list,
                                     'Bait': bait_list,
                                     'Caught?': caught_list,
-                                    'Edible?': edible_list
+                                    'Edible?': edible_list,
+                                    'Fish Type': fish_type_list
                                     }
                     df = pd.DataFrame(fishing_trip, columns=['Date', 'Time', 'Location', 'Coordinates',
-                                                             'Water Type', 'Bait', 'Caught?', 'Edible?'])
+                                                             'Water Type', 'Bait', 'Caught?', 'Edible?',
+                                                             'Fish Type'])
                     df.to_csv('fishingData.csv')
                     # Send CSV to remote server
                     print('Thanks for fishing today!')
