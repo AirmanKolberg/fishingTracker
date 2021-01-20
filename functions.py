@@ -98,7 +98,7 @@ def go_fish():
     bait = Inputs('Bait', 'Select bait...')
     caught = Inputs('Caught?', 'Did you catch a fish?')
     edible = Inputs('Edible?', 'Was it large enough to eat, if desired?')
-    fish_type = Inputs('Fish Type', 'Type of fish? (Leave blank and press Enter if unknown)')
+    fish_type = Inputs('Fish Type', "Type of fish? (Leave blank and press 'Return'/'Enter' if unknown)")
 
     clear_screen()
     today = str(date.today())
