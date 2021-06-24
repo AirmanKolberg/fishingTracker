@@ -167,9 +167,7 @@ def go_fish():
                                     'Edible?': edible_list,
                                     'Fish Type': fish_type_list
                                     }
-                    df = pd.DataFrame(fishing_trip, columns=['Date', 'Time', 'Location', 'Coordinates',
-                                                             'Water Type', 'Bait', 'Caught?', 'Edible?',
-                                                             'Fish Type'])
+                    df = pd.DataFrame(fishing_trip, columns=[i for i in fishing_trip])
                     df.to_csv('fishingData.csv')
                     # Send CSV to remote server
                     print('Thanks for fishing today!')
